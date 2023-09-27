@@ -92,6 +92,19 @@ app.get('/movies/add/:title?/:year?/:rating?',(req,res)=>{
     }
 
 })
+app.get("/movies/delete/:id?",(req,res)=>{
+    const {id} = req.params;
+    if(id > movies.length)
+        res.status(404).json({status:404, error:true, message:`the movie ${id} does not exist`})
+    else if (id == 1){
+    movies.shift()
+    res.status(404).json({status:404,  message:`the movie  with id ${id} has been deleted`})
+    }
+    else{
+        res.status(404).json({status:404,  message:`the movie  with id ${id} has been deleted`})
+        movies.splice(id-1,id-1)
+    }
+})
     
 
 
