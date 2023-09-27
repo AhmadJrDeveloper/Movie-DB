@@ -1,5 +1,8 @@
 const express = require('express');
 const { status } = require('express/lib/response');
+const { compileETag } = require('express/lib/utils');
+const mongoose = require('mongoose');
+const url = "mongodb+srv://<username>:<password>@mernapp.dq9vhgf.mongodb.net/";
 const app = express();
 const movies = [
     { title: 'Jaws', year: 1975, rating: 8 },
@@ -7,6 +10,10 @@ const movies = [
     { title: 'Brazil', year: 1985, rating: 8 },
     { title: 'الإرهاب والكباب', year: 1992, rating: 6.2 }
 ]
+mongoose.connect(url).then(()=>{})
+.catch((error)=>{
+    console.log(error)
+})
 
 app.get('/',(req,res)=>{
     res.send("ok");
