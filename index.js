@@ -105,6 +105,24 @@ app.get("/movies/delete/:id?",(req,res)=>{
         movies.splice(id-1,id-1)
     }
 })
+app.get("/movies/update/:id?/:title?",(req,res)=>{
+    const {id,title} = req.params;
+    if(id > movies.length)
+        res.status(404).json({status:404, error:true, message:`the movie ${id} does not exist`})
+    else
+        res.status(404).json({status:404,  message:`the movie with ${id} has been updated`})
+        movies[id-1].title = title;
+})
+app.get("/movies/update/:id?/:title?/:rating?",(req,res)=>{
+    const {id,title,rating} = req.params;
+    if(id > movies.length)
+        res.status(404).json({status:404, error:true, message:`the movie ${id} does not exist`})
+    else
+        res.status(404).json({status:404,  message:`the movie with ${id} has been updated`})
+        movies[id-1].title = title;
+        movies[id-1].rating = rating;
+
+})
     
 
 
