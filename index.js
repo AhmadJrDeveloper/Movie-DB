@@ -1,4 +1,5 @@
 const express = require('express');
+const { status } = require('express/lib/response');
 const app = express();
 const movies = [
     { title: 'Jaws', year: 1975, rating: 8 },
@@ -66,6 +67,30 @@ app.get('/movies/read/:id?',(req,res)=>{
 }
 else
     res.status(200).json({status:200, data:movies[id-1]});
+})
+app.get('/movies/add/:title?/:year?/:rating?',(req,res)=>{
+    const {title,year,rating} = req.params;
+    if(!title || !year){
+        res.status(403).json({status:403, error:true, message:'you cannot create a movie without providing a title and a year'}
+    )
+    }
+    else if(year.length !== 4 || isNaN(year)){
+        res.status(403).json({status:403, error:true, message:'you cannot create a movie without providing a title and a year'}
+
+        )
+    }
+    else if(!rating){
+        const newMovie = {title:title, year:year, rating:4};
+        movies.push(newMovie);
+        res.status(200).json({status:200, message:"movie added with default rating of 4"})
+
+    }
+    else{
+        const newMovie = {title:title, year:year, rating:rating};
+        movies.push(newMovie);
+        res.status(200).json({status:200, message:"movie added"})
+    }
+
 })
     
 
